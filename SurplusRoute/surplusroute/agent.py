@@ -58,6 +58,10 @@ class SurplusRouteAgent:
         self.state = state
         self.final_forecaster = GlutForecaster.load(model_path(commodity, state))
         self.year_forecasters = {}
+        self.year_model_years = {
+            int(path.stem.rsplit("_", 1)[-1])
+            for path in model_path(commodity, state).parent.glob(f"{model_path(commodity, state).stem}_before_*.joblib")
+        }
         self.history = build_features(load_panel(commodity, state), with_labels=True)
         try:
             self.mandis = mandis_by_district(build_mandi_series(commodity, state))
@@ -218,13 +222,13 @@ class SurplusRouteAgent:
                     "status": "no_data", "alerts": []}
         profile = CrashProfile.fit(self.history, as_of)
         assessments = self.decide(self.forecast(self.analyze(snapshot), as_of), profile)
-        honest = year_model_path(self.commodity, self.state, as_of.year).exists()
+        honest = self.unseen_by_model(as_of)
         return {
             "commodity": self.commodity,
             "state": self.state,
             "as_of": str(as_of.date()),
             "status": "ok",
-            "model_used": f"trained before {as_of.year}" if honest else "trained on all data",
+            "model_used": "not trained on this date" if honest else "trained on all data",
             "summary": {
                 "districts_tracked": len(assessments),
                 "high_risk": sum(a.risk_level == "HIGH" for a in assessments),
@@ -239,12 +243,15 @@ class SurplusRouteAgent:
     def match_surplus(self, listing, top_n=5):
         return marketplace.match_buyers(listing, marketplace.load_buyers(), top_n=top_n)
 
+    def unseen_by_model(self, as_of):
+        year = pd.Timestamp(as_of).year
+        return year in self.year_model_years or (bool(self.year_model_years) and year > max(self.year_model_years))
+
     def available_dates(self, honest_only=False):
         usable = self.history.dropna(subset=["modal_price", "arrival_ratio_3d"])
         dates = sorted(usable["date"].unique())
         if honest_only:
-            dates = [d for d in dates
-                     if year_model_path(self.commodity, self.state, pd.Timestamp(d).year).exists()] or dates
+            dates = [d for d in dates if self.unseen_by_model(d)] or dates
         return dates
 
     def district_history(self, district, end, days=45):

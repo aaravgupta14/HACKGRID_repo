@@ -145,6 +145,18 @@ def build_panel(commodity, state):
     return panel
 
 
+def data_ready(commodity, state, min_days=60):
+    for source in ("arrivals", "prices"):
+        path = cache_path(source, commodity, state)
+        if not path.exists():
+            return False
+        with path.open(encoding="utf-8") as handle:
+            filled = sum(1 for line in handle if line.strip() and '"records": []' not in line)
+        if filled < min_days:
+            return False
+    return True
+
+
 def panel_path(commodity, state):
     config.PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
     return config.PROCESSED_DIR / f"panel_{commodity}_{state.replace(' ', '_')}.csv"
@@ -158,6 +170,9 @@ def main():
     parser = argparse.ArgumentParser()
     parser.parse_args()
     for commodity, state in config.TRACKED:
+        if not data_ready(commodity, state):
+            print(f"{commodity}/{state}: skipped, data not downloaded yet")
+            continue
         panel = build_panel(commodity, state)
         path = panel_path(commodity, state)
         panel.to_csv(path, index=False)

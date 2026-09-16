@@ -25,9 +25,9 @@ STATE_IDS = {
     "Tamil Nadu": 31,
 }
 
-TRACKED = [("Tomato", "Karnataka")]
+TRACKED = [("Tomato", "Karnataka"), ("Onion", "Karnataka"), ("Potato", "Karnataka")]
 START_DATE = "2022-01-01"
-END_DATE = "2025-12-31"
+END_DATE = "2026-09-16"
 
 BASELINE_WINDOW = 30
 MIN_BASELINE_DAYS = 10
@@ -47,4 +47,5 @@ SCORE_WEIGHTS = {"crash_probability": 0.5, "severity": 0.3, "momentum": 0.2}
 MARKETPLACE_DIR = DATA_DIR / "marketplace"
 BUYER_TYPES = ["Small processor", "Retailer", "Canteen", "Hotel or restaurant", "Caterer", "Other small business"]
 SELLER_TYPES = ["FPO", "Trader", "Aggregator"]
+GRADES = ["A", "B", "C"]
 DEFAULT_MATCH_RADIUS_KM = 150

@@ -25,6 +25,14 @@
 | English, Kannada and Hindi labels | `i18n.py`, `dashboard.py` | Customer Segment |
 | Real small business buyers from public sources, marked as not registered | `public_buyers.py`, `marketplace.py` | Customer Segment |
 
+## Bookings stay user-triggered
+
+- `SurplusRouteAgent` has no booking code. It only ranks buyers with `match_surplus`.
+- `marketplace.create_booking` refuses to run unless `confirmed_by_user=True`, which only the dashboard's Confirm booking button passes.
+- Buyer phone numbers stay hidden until that confirmation.
+- Verified means the Udyam or FSSAI number format was checked. Trust scores on registered buyers are labelled sample data; public listings show no rating.
+- Payment holding is shown as coming soon through a licensed payment partner; no money is handled.
+
 ## Out of scope by design
 
 - Automatic calls, SMS, WhatsApp or email to buyers or sellers

@@ -10,7 +10,7 @@ from sklearn.metrics import average_precision_score, mean_absolute_error, precis
 
 from surplusroute import config
 from surplusroute.features import FEATURE_COLUMNS, build_features
-from surplusroute.prepare import load_panel
+from surplusroute.prepare import load_panel, panel_path
 
 
 def model_path(commodity, state):
@@ -67,6 +67,8 @@ class GlutForecaster:
         self.crash_classifier.fit(features, train["crash_ahead"].astype(int))
         self.drop_regressor.fit(features, train["future_drop"].clip(-1, 1))
         crashes = train[train["crash_ahead"] == 1]
+        if len(crashes) < 20:
+            crashes = train
         self.timing_regressor.fit(crashes[FEATURE_COLUMNS], crashes["days_to_bottom"])
         return self
 
@@ -81,6 +83,10 @@ class GlutForecaster:
 
     def evaluate(self, test):
         truth = test["crash_ahead"].astype(int)
+        if truth.nunique() < 2:
+            self.metrics = {"test_rows": int(len(test)), "test_crash_rate": round(float(truth.mean()), 4),
+                            "note": "test period has only one outcome, ranking metrics not defined"}
+            return self.metrics
         predicted = self.predict(test)
         probability = predicted["crash_probability"]
         alerts = probability >= config.RISK_HIGH
@@ -148,6 +154,9 @@ def train(commodity, state):
 def main():
     argparse.ArgumentParser().parse_args()
     for commodity, state in config.TRACKED:
+        if not panel_path(commodity, state).exists():
+            print(f"{commodity}/{state}: skipped, run prepare first")
+            continue
         train(commodity, state)
 
 

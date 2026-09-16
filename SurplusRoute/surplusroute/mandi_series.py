@@ -1,9 +1,34 @@
 import argparse
+import difflib
+import re
 
 import pandas as pd
 
 from surplusroute import config
-from surplusroute.prepare import load_arrivals, load_prices, match_districts
+from surplusroute.prepare import data_ready, load_arrivals, load_prices, match_districts
+
+
+def _market_key(name):
+    text = str(name).lower()
+    text = re.sub(r"\bapmc\b|\(f&v\)|\bmarket\b|[^a-z ]", " ", text)
+    return " ".join(text.split())
+
+
+def unify_market_names(prices):
+    counts = prices.groupby(["district_key", "market"]).size().reset_index(name="rows")
+    rename = {}
+    for _, group in counts.groupby("district_key"):
+        canonical = []
+        for _, row in group.sort_values("rows", ascending=False).iterrows():
+            key = _market_key(row["market"])
+            match = next((name for name, name_key in canonical
+                          if name_key == key or difflib.SequenceMatcher(None, name_key, key).ratio() >= 0.75), None)
+            if match:
+                rename[(row["district_key"], row["market"])] = match
+            else:
+                canonical.append((row["market"], key))
+    prices["market"] = [rename.get((d, m), m) for d, m in zip(prices["district_key"], prices["market"])]
+    return prices
 
 
 def build_mandi_series(commodity, state):
@@ -13,6 +38,7 @@ def build_mandi_series(commodity, state):
     prices = prices[prices["district_key"].isin(mapping)].copy()
     prices["district_key"] = prices["district_key"].map(mapping)
     prices["market"] = prices["market"].str.strip()
+    prices = unify_market_names(prices)
 
     daily = prices.groupby(["market", "district_key", "date"]).agg(
         modal_price=("modal_price", "median"),
@@ -64,6 +90,9 @@ def mandis_by_district(mandi_frame):
 def main():
     argparse.ArgumentParser().parse_args()
     for commodity, state in config.TRACKED:
+        if not data_ready(commodity, state):
+            print(f"{commodity}/{state}: skipped, data not downloaded yet")
+            continue
         frame = build_mandi_series(commodity, state)
         path = mandi_series_path(commodity, state)
         frame.to_csv(path, index=False)

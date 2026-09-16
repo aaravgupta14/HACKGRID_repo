@@ -3,3 +3,4 @@ __pycache__/
 .claude/
 data/marketplace/*.csv
 .env
+data/marketplace/photos/

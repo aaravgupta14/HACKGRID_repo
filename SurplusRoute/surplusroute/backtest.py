@@ -6,7 +6,7 @@ import pandas as pd
 from surplusroute import config
 from surplusroute.features import build_features
 from surplusroute.model import GlutForecaster
-from surplusroute.prepare import load_panel
+from surplusroute.prepare import load_panel, panel_path
 
 
 def crash_episodes(frame, merge_gap=3):
@@ -104,7 +104,7 @@ def district_timeline(scored, district, start, end):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--years", nargs="+", type=int, default=[2023, 2024, 2025])
+    parser.add_argument("--years", nargs="+", type=int, default=[2023, 2024, 2025, 2026])
     parser.add_argument("--min-drop", type=float, default=40.0)
     parser.add_argument("--district")
     parser.add_argument("--start")
@@ -112,6 +112,9 @@ def main():
     args = parser.parse_args()
     config.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     for commodity, state in config.TRACKED:
+        if not panel_path(commodity, state).exists():
+            print(f"{commodity}/{state}: skipped, run prepare first")
+            continue
         frame = build_features(load_panel(commodity, state))
         scored = walk_forward_scores(frame, args.years)
         episodes, summary = evaluate(scored, args.min_drop)
