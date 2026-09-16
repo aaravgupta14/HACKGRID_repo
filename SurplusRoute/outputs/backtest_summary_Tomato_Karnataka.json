@@ -1,0 +1,9 @@
+{
+  "crash_episodes": 225,
+  "episodes_caught": 206,
+  "catch_rate": 0.916,
+  "median_lead_days_to_bottom": 16.5,
+  "median_lead_days_before_15pct_fall": 11.0,
+  "high_alert_days": 2958,
+  "false_alarm_rate": 0.588
+}

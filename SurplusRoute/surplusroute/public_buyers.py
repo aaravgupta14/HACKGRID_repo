@@ -1,0 +1,48 @@
+PUBLIC_BUYERS_CHECKED_ON = "2026-09-16"
+
+PUBLIC_BUYERS = [
+    {
+        "business_name": "Vidyarthi Bhavan",
+        "business_type": "Hotel or restaurant",
+        "state": "Karnataka",
+        "district": "Bengaluru",
+        "address": "No-32, Gandhi Bazar Main Road, Basavanagudi, Bengaluru 560004",
+        "crops": "Tomato;Onion;Potato",
+        "contact_phone": "+91 80 266 77588",
+        "contact_email": "contact@vidyarthibhavan.in",
+        "source_url": "https://www.vidyarthibhavan.in/contact.html",
+    },
+    {
+        "business_name": "Brahmin's Coffee Bar",
+        "business_type": "Hotel or restaurant",
+        "state": "Karnataka",
+        "district": "Bengaluru",
+        "address": "Ranga Rao Road, near Shankar Mutt, Shankarapuram, Basavanagudi, Bengaluru 560004",
+        "crops": "Tomato;Onion;Potato",
+        "contact_phone": "",
+        "contact_email": "",
+        "source_url": "https://www.timeout.com/bengaluru/restaurants/brahmins-coffee-bar",
+    },
+    {
+        "business_name": "Hotel RRR",
+        "business_type": "Hotel or restaurant",
+        "state": "Karnataka",
+        "district": "Mysuru",
+        "address": "20/1 Gandhi Square, near Mysore Palace, Mysuru 570001",
+        "crops": "Tomato;Onion;Potato",
+        "contact_phone": "+91 821 244 1979",
+        "contact_email": "",
+        "source_url": "https://www.tripadvisor.in/Restaurant_Review-g304553-d5993483-Reviews-Hotel_RRR_Restaurant-Mysuru_Mysore_Mysore_District_Karnataka.html",
+    },
+    {
+        "business_name": "Kousthubha Enterprises",
+        "business_type": "Small processor",
+        "state": "Karnataka",
+        "district": "Mysuru",
+        "address": "Mysuru, Karnataka",
+        "crops": "Tomato",
+        "contact_phone": "",
+        "contact_email": "",
+        "source_url": "https://www.indiamart.com/kousthubhaenterprises/indian-pickle.html",
+    },
+]

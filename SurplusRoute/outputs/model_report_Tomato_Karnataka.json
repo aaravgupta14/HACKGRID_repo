@@ -1,0 +1,34 @@
+{
+  "commodity": "Tomato",
+  "state": "Karnataka",
+  "metrics": {
+    "test_rows": 2525,
+    "test_crash_rate": 0.2218,
+    "roc_auc": 0.651,
+    "pr_auc": 0.3402,
+    "precision_at_high": 0.3586,
+    "recall_at_high": 0.3554,
+    "rule_precision": 0.1336,
+    "rule_recall": 0.0696,
+    "drop_mae": 0.1601,
+    "days_to_bottom_mae": 2.514
+  },
+  "feature_importance": {
+    "price_change_3d": 0.0408,
+    "log_price": 0.0392,
+    "doy_sin": 0.0309,
+    "price_change_7d": 0.0213,
+    "price_vs_baseline": 0.0134,
+    "state_price_change_7d": 0.0096,
+    "price_spread": 0.0095,
+    "arrival_acceleration": 0.008,
+    "price_volatility_14d": 0.0062,
+    "doy_cos": 0.0061,
+    "arrival_ratio_3d": 0.006,
+    "arrival_ratio_7d": 0.0042,
+    "arrival_share_of_state": 0.0023,
+    "arrival_yoy_ratio": -0.0157,
+    "state_spiking_share": -0.016,
+    "state_arrival_ratio": -0.0172
+  }
+}

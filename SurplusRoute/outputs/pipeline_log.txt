@@ -1,0 +1,269 @@
+[18:23:48] Waiting for arrivals (user window PID 23652)
+[18:47:05] Arrivals complete (1461 days)
+[18:47:06] Stopped user window download to avoid duplicate price download
+[18:47:06] Waiting for background prices download (PID 40736)
+[19:03:16] Prices download ended with 1408 days
+[19:03:16] Final gap-filling pass
+[arrivals] Tomato/Karnataka: 1461 cached, 0 to fetch
+[arrivals] Tomato/Karnataka: done
+[prices] Tomato/Karnataka: 1408 cached, 53 to fetch
+[prices] Tomato/Karnataka: 50/53
+[prices] Tomato/Karnataka: done
+[19:06:53] Arrivals 1461 days, prices 1461 days
+[19:06:54] Running prepare
+Districts dropped for low coverage (<50%): ['ballari', 'belagavi', 'chitradurga', 'dakshina kannada', 'davangere', 'dharwad', 'gadag', 'hassan', 'haveri', 'koppal', 'tumakuru', 'udupi']
+Tomato/Karnataka: 11688 rows, 8 districts -> C:\Users\Aarav Gupta\OneDrive\Desktop\HACK\data\processed\panel_Tomato_Karnataka.csv
+                days_with_arrivals  days_with_prices  mean_arrival_t  median_price
+district                                                                          
+Kolar                         1378              1415          1258.4        1130.0
+Chikkamagaluru                1129              1091            73.3        1488.0
+Bengaluru                      993              1357            47.5        1700.0
+Shivamogga                     915               794            37.9        1200.0
+Mysuru                        1135              1078            32.7        1550.0
+Chamarajanagar                1193              1128            19.0        1300.0
+Kalaburagi                     872               780             5.8        1100.0
+Mandya                         864               823             5.8        1000.0
+[19:06:57] Running model
+C:\Users\Aarav Gupta\anaconda3\Lib\site-packages\joblib\externals\loky\backend\context.py:136: UserWarning: Could not find the number of physical cores for the following reason:
+[WinError 2] The system cannot find the file specified
+Returning the number of logical cores instead. You can silence this warning by setting LOKY_MAX_CPU_COUNT to the number of cores you want to use.
+  warnings.warn(
+  File "C:\Users\Aarav Gupta\anaconda3\Lib\site-packages\joblib\externals\loky\backend\context.py", line 257, in _count_physical_cores
+    cpu_info = subprocess.run(
+        "wmic CPU Get NumberOfCores /Format:csv".split(),
+        capture_output=True,
+        text=True,
+    )
+  File "C:\Users\Aarav Gupta\anaconda3\Lib\subprocess.py", line 554, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Aarav Gupta\anaconda3\Lib\subprocess.py", line 1039, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        pass_fds, cwd, env,
+                        ^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+                        gid, gids, uid, umask,
+                        ^^^^^^^^^^^^^^^^^^^^^^
+                        start_new_session, process_group)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Aarav Gupta\anaconda3\Lib\subprocess.py", line 1554, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+                             # no special security
+                             ^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+                             cwd,
+                             ^^^^
+                             startupinfo)
+                             ^^^^^^^^^^^^
+Tomato/Karnataka: train 8295 rows (36.9% crash), test 2525 rows (22.2% crash)
+{
+  "commodity": "Tomato",
+  "state": "Karnataka",
+  "metrics": {
+    "test_rows": 2525,
+    "test_crash_rate": 0.2218,
+    "roc_auc": 0.651,
+    "pr_auc": 0.3402,
+    "precision_at_high": 0.3586,
+    "recall_at_high": 0.3554,
+    "rule_precision": 0.1336,
+    "rule_recall": 0.0696,
+    "drop_mae": 0.1601,
+    "days_to_bottom_mae": 2.514
+  },
+  "feature_importance": {
+    "price_change_3d": 0.0408,
+    "log_price": 0.0392,
+    "doy_sin": 0.0309,
+    "price_change_7d": 0.0213,
+    "price_vs_baseline": 0.0134,
+    "state_price_change_7d": 0.0096,
+    "price_spread": 0.0095,
+    "arrival_acceleration": 0.008,
+    "price_volatility_14d": 0.0062,
+    "doy_cos": 0.0061,
+    "arrival_ratio_3d": 0.006,
+    "arrival_ratio_7d": 0.0042,
+    "arrival_share_of_state": 0.0023,
+    "arrival_yoy_ratio": -0.0157,
+    "state_spiking_share": -0.016,
+    "state_arrival_ratio": -0.0172
+  }
+}
+[19:07:19] Running backtest
+C:\Users\Aarav Gupta\anaconda3\Lib\site-packages\joblib\externals\loky\backend\context.py:136: UserWarning: Could not find the number of physical cores for the following reason:
+[WinError 2] The system cannot find the file specified
+Returning the number of logical cores instead. You can silence this warning by setting LOKY_MAX_CPU_COUNT to the number of cores you want to use.
+  warnings.warn(
+  File "C:\Users\Aarav Gupta\anaconda3\Lib\site-packages\joblib\externals\loky\backend\context.py", line 257, in _count_physical_cores
+    cpu_info = subprocess.run(
+        "wmic CPU Get NumberOfCores /Format:csv".split(),
+        capture_output=True,
+        text=True,
+    )
+  File "C:\Users\Aarav Gupta\anaconda3\Lib\subprocess.py", line 554, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Aarav Gupta\anaconda3\Lib\subprocess.py", line 1039, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        pass_fds, cwd, env,
+                        ^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+                        gid, gids, uid, umask,
+                        ^^^^^^^^^^^^^^^^^^^^^^
+                        start_new_session, process_group)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Aarav Gupta\anaconda3\Lib\subprocess.py", line 1554, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+                             # no special security
+                             ^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+                             cwd,
+                             ^^^^
+                             startupinfo)
+                             ^^^^^^^^^^^^
+2023: trained on 2681 rows before 2022-12-22, scored 2880 rows
+2024: trained on 5561 rows before 2023-12-22, scored 2756 rows
+2025: trained on 8295 rows before 2024-12-22, scored 2594 rows
+{
+  "crash_episodes": 225,
+  "episodes_caught": 206,
+  "catch_rate": 0.916,
+  "median_lead_days_to_bottom": 16.5,
+  "median_lead_days_before_15pct_fall": 11.0,
+  "high_alert_days": 2958,
+  "false_alarm_rate": 0.588
+}
+      district risk_window_start  price_at_start bottom_date  bottom_price  total_drop_pct price_down_15pct_date first_high_alert  lead_days_to_bottom  lead_days_before_15pct_fall
+    Shivamogga        2023-07-24         11000.0  2023-08-25          12.0            99.9            2023-07-26       2023-07-14                 42.0                         12.0
+    Shivamogga        2024-02-11          1500.0  2024-03-05           5.0            99.7            2024-02-21       2024-02-06                 28.0                         15.0
+    Shivamogga        2023-11-13          1400.0  2023-11-17          12.0            99.1            2023-11-17       2023-11-06                 11.0                         11.0
+    Shivamogga        2023-09-11           500.0  2023-09-21           5.0            99.0            2023-09-21       2023-09-06                 15.0                         15.0
+    Shivamogga        2023-11-02          1200.0  2023-11-17          12.0            99.0            2023-11-03       2023-11-02                 15.0                          1.0
+    Shivamogga        2023-11-28          1600.0  2023-12-08          16.0            99.0            2023-12-04       2023-11-22                 16.0                         12.0
+    Shivamogga        2023-05-26          1500.0  2023-06-07          25.0            98.3            2023-05-29       2023-05-26                 12.0                          3.0
+Chikkamagaluru        2023-11-27          2934.0  2023-12-17          90.0            96.9            2023-12-01       2023-11-18                 29.0                         13.0
+Chikkamagaluru        2023-07-13          5950.0  2023-08-29         250.0            95.8            2023-07-23       2023-07-03                 57.0                         20.0
+         Kolar        2023-07-30          8000.0  2023-09-08         367.0            95.4            2023-08-03       2023-07-27                 43.0                          7.0
+     Bengaluru        2023-07-29         10000.0  2023-09-13         550.0            94.5            2023-08-06       2023-07-19                 56.0                         18.0
+Chamarajanagar        2023-07-29          8000.0  2023-09-09         500.0            93.8            2023-08-07       2023-07-19                 52.0                         19.0
+        Mysuru        2023-07-28          8900.0  2023-09-10         700.0            92.1            2023-08-06       2023-07-18                 54.0                         19.0
+Chikkamagaluru        2024-01-08          2023.0  2024-01-26         165.0            91.8            2024-01-17       2023-12-29                 28.0                         19.0
+Chikkamagaluru        2023-12-21          1232.5  2023-12-28         150.0            87.8            2023-12-28       2023-12-11                 17.0                         17.0
+      date  arrival_tonnes  arrival_ratio_3d  modal_price  price_vs_baseline  crash_probability  predicted_drop  predicted_days_to_bottom  future_drop  days_to_bottom
+2023-08-01          1043.0             0.809       9100.0              0.538              0.681           0.412                         7        0.634            10.0
+2023-08-02          1113.0             0.869       8000.0              0.324              0.309           0.358                         8        0.592            10.0
+2023-08-03          1133.0             0.893       6335.0              0.032              0.202           0.284                         8        0.511            10.0
+2023-08-04          1218.0             0.952       6000.0             -0.030              0.148           0.270                         7        0.484             9.0
+2023-08-05           185.0             0.702       5166.5             -0.170              0.075           0.241                         7        0.400             8.0
+2023-08-06          1363.0             0.797       6200.0             -0.007              0.133           0.279                         7        0.500             7.0
+2023-08-07          1372.0             0.846       5666.0             -0.100              0.157           0.293                         7        0.647            10.0
+2023-08-08          1386.0             1.195       6533.0              0.036              0.700           0.411                         8        0.694             9.0
+2023-08-09          1454.0             1.226       4633.5             -0.272              0.248           0.349                         9        0.568             8.0
+2023-08-10          1485.0             1.252       3333.0             -0.476              0.165           0.252                         9        0.400             7.0
+2023-08-11          1462.0             1.267       3330.0             -0.471              0.234           0.257                         9        0.399             6.0
+2023-08-12          1399.0             1.246       3266.5             -0.474              0.269           0.288                         9        0.510            10.0
+2023-08-13          1531.0             1.257       3098.0             -0.495              0.366           0.286                         9        0.634            10.0
+2023-08-14          1657.0             1.302       3500.0             -0.418              0.394           0.297                         9        0.676             9.0
+2023-08-15             1.0             0.897       3200.0             -0.462              0.133           0.023                         7        0.646             8.0
+2023-08-16             1.0             0.484       3200.0             -0.453              0.133           0.167                         7        0.646             7.0
+2023-08-17          1868.0             0.566       2000.0             -0.653              0.039           0.000                         7        0.434             6.0
+2023-08-18          1748.0             1.074       2000.0             -0.644              0.066           0.042                         7        0.434             5.0
+2023-08-19          1717.0             1.564       2066.0             -0.623              0.221           0.211                         9        0.452             4.0
+2023-08-20          1807.0             1.525       2000.0             -0.628              0.483           0.229                         9        0.434             3.0
+2023-08-21          1857.0             1.532       2000.0             -0.618              0.379           0.218                         9        0.500            10.0
+2023-08-22          1943.0             1.566       1600.0             -0.687              0.275           0.192                         9        0.419            10.0
+2023-08-23          1981.0             1.582       1133.0             -0.771              0.137           0.057                         9        0.206            10.0
+2023-08-24          1950.0             1.564       1330.0             -0.723              0.253           0.215                        10        0.323             9.0
+2023-08-25          1896.0             1.514       1366.5             -0.707              0.400           0.206                         9        0.393            10.0
+2023-08-26          1814.0             1.435       1366.5             -0.695              0.454           0.271                         9        0.393             9.0
+2023-08-27          1839.0             1.375       1533.0             -0.643              0.404           0.237                         9        0.589            10.0
+2023-08-28          2087.0             1.395       1600.0             -0.611              0.377           0.252                         9        0.606             9.0
+2023-08-29          2042.0             1.410       1466.5             -0.627              0.479           0.239                         9        0.750            10.0
+2023-08-30          2345.0             1.490       1270.0             -0.658              0.325           0.243                        10        0.711             9.0
+2023-08-31          2094.0             1.450       1000.0             -0.710              0.109           0.143                        10        0.633             8.0
+2023-09-01          2175.0             1.446        930.0             -0.707              0.108           0.115                         9        0.605             7.0
+2023-09-02          2180.0             1.378        900.0             -0.694              0.109           0.148                        10        0.592             6.0
+2023-09-03          1990.0             1.326        916.5             -0.667              0.212           0.150                         9        0.600             5.0
+2023-09-04          2268.0             1.324        830.0             -0.679              0.082           0.101                         9        0.558             4.0
+2023-09-05          2249.0             1.283       1130.0             -0.537              0.338           0.239                         9        0.675             3.0
+2023-09-06          2158.0             1.294        630.0             -0.723              0.026           0.092                         8        0.417             2.0
+2023-09-07           285.0             0.896        666.0             -0.684              0.010           0.000                         6        0.449             1.0
+2023-09-08          1817.0             0.831        367.0             -0.808              0.002           0.000                         7       -0.090             4.0
+2023-09-09          1710.0             0.738        766.5             -0.566              0.031           0.109                         5        0.478             3.0
+2023-09-10          1367.0             0.943       1000.0             -0.405              0.211           0.240                         4        0.600             2.0
+2023-09-11          2192.0             1.018        733.0             -0.543              0.261           0.254                         4        0.454             1.0
+2023-09-12          2176.0             1.091        400.0             -0.737              0.002           0.000                         7       -0.288            10.0
+2023-09-13          2269.0             1.247        600.0             -0.580              0.012           0.058                        10        0.167            10.0
+2023-09-14          1921.0             1.183        685.0             -0.486              0.041           0.192                         8        0.270             9.0
+2023-09-15          1903.0             1.093        700.0             -0.440              0.466           0.306                         4        0.286             8.0
+2023-09-16          1529.0             0.929        600.0             -0.486              0.008           0.000                         5        0.167             7.0
+2023-09-17          1472.0             0.856        600.0             -0.464              0.009           0.000                         5        0.167             6.0
+2023-09-18          1477.0             0.785        635.0             -0.408              0.005           0.000                         4        0.213             5.0
+2023-09-19          1236.0             0.737        666.0             -0.350              0.019           0.077                         5        0.249             4.0
+2023-09-20          1595.0             0.766        600.0             -0.388              0.004           0.000                         5        0.167             3.0
+2023-09-21          2157.0             0.891        566.5             -0.393              0.004           0.000                         5        0.117             2.0
+2023-09-22          1971.0             1.019        515.0             -0.428              0.004           0.000                         5        0.029             1.0
+2023-09-23          1890.0             1.072        500.0             -0.431              0.004           0.000                         6       -0.100             7.0
+2023-09-24          1517.0             0.959        650.0             -0.236              0.011           0.042                         6        0.154             6.0
+2023-09-25          1581.0             0.895        666.0             -0.195              0.007           0.021                         6        0.174             5.0
+2023-09-26          1765.0             0.876        733.0             -0.088              0.052           0.129                         5        0.250             4.0
+2023-09-27          1514.0             0.877        700.0             -0.100              0.006           0.051                         6        0.214             3.0
+2023-09-28          1928.0             0.949        700.0             -0.063              0.013           0.051                         6        0.214             2.0
+2023-09-29          2289.0             1.047        633.0             -0.123              0.018           0.027                         6        0.131             1.0
+2023-09-30          1999.0             1.137        550.0             -0.215              0.010           0.019                         6       -0.029             8.0
+[19:07:40] Running agent
+C:\Users\Aarav Gupta\anaconda3\Lib\site-packages\joblib\externals\loky\backend\context.py:136: UserWarning: Could not find the number of physical cores for the following reason:
+[WinError 2] The system cannot find the file specified
+Returning the number of logical cores instead. You can silence this warning by setting LOKY_MAX_CPU_COUNT to the number of cores you want to use.
+  warnings.warn(
+  File "C:\Users\Aarav Gupta\anaconda3\Lib\site-packages\joblib\externals\loky\backend\context.py", line 257, in _count_physical_cores
+    cpu_info = subprocess.run(
+        "wmic CPU Get NumberOfCores /Format:csv".split(),
+        capture_output=True,
+        text=True,
+    )
+  File "C:\Users\Aarav Gupta\anaconda3\Lib\subprocess.py", line 554, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Aarav Gupta\anaconda3\Lib\subprocess.py", line 1039, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        pass_fds, cwd, env,
+                        ^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+                        gid, gids, uid, umask,
+                        ^^^^^^^^^^^^^^^^^^^^^^
+                        start_new_session, process_group)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Aarav Gupta\anaconda3\Lib\subprocess.py", line 1554, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+                             # no special security
+                             ^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+                             cwd,
+                             ^^^^
+                             startupinfo)
+                             ^^^^^^^^^^^^
+SurplusRoute glut alerts: Tomato / Karnataka as of 2025-12-31
+Districts tracked: 6 | HIGH: 1 | WATCH: 3 | State arrivals vs baseline: -60.5%
+----------------------------------------------------------------------------------------------------
+[HIGH  ] Tomato, Bengaluru: arrivals 1% above baseline, price up 24%. Crash risk 75%, expected fall about 29% to near Rs 3,253/qtl.
+          Action: Line up an outlet for your stock now and list surplus for nearby small business buyers; buy here only at the projected lower price.
+[WATCH ] Tomato, Mysuru: arrivals 41% above baseline, price up 43%. Crash risk 57%, expected fall about 22% to near Rs 3,249/qtl.
+          Action: Buy only against firm orders, keep inventory lean and recheck tomorrow's arrivals.
+[WATCH ] Tomato, Kolar: arrivals 80% below baseline, price up 16%. Crash risk 55%, expected fall about 30% to near Rs 1,626/qtl.
+          Action: Buy only against firm orders, keep inventory lean and recheck tomorrow's arrivals.
+          Reroute: Chikkamagaluru at Rs 3,609/qtl (+Rs 1,278), risk 26%
+[WATCH ] Tomato, Chamarajanagar: arrivals 14% above baseline, price up 28%. Crash risk 35%, expected fall about 16% to near Rs 4,011/qtl.
+          Action: Buy only against firm orders, keep inventory lean and recheck tomorrow's arrivals.
+[NORMAL] Tomato, Chikkamagaluru: arrivals 6% below baseline, price up 15%. Crash risk 26%.
+[NORMAL] Tomato, Kalaburagi: arrivals 4% below baseline, price down 41%. Crash risk 10%.
+----------------------------------------------------------------------------------------------------
+Report saved to C:\Users\Aarav Gupta\OneDrive\Desktop\HACK\outputs\alerts_Tomato_Karnataka_2025-12-31.json
+[19:07:45] PIPELINE COMPLETE
